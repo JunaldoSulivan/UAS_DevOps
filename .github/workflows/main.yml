@@ -24,4 +24,5 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: JunaldoSulivan/uas-devops:latest
+        # UBAH BARIS DI BAWAH INI:
+        tags: ${{ secrets.DOCKER_USERNAME }}/uas-devops:latest
