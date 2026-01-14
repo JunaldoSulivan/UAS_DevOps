@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: diabetes-fe
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: diabetes-fe
+  template:
+    metadata:
+      labels:
+        app: diabetes-fe
+    spec:
+      containers:
+      - name: diabetes-app
+        image: diabetes-app:latest  # ← SAMA DENGAN BACKEND!
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5000
+        command: ["python", "app.py"]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: diabetes-fe-service
+spec:
+  selector:
+    app: diabetes-fe
+  ports:
+  - port: 8080
+    targetPort: 5000
+  type: LoadBalancer

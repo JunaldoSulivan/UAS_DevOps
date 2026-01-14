@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: uas-backend
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: uas-backend
+  template:
+    metadata:
+      labels:
+        app: uas-backend
+    spec:
+      containers:
+      - name: uas-backend-container
+        # GANTI dengan username Docker Hub kamu
+        image: JunaldoSulivan/uas-devops:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+        env:
+        # Kita paksa aplikasi pakai Port 5000 & Mode Production
+        - name: PORT
+          value: "5000"
+        - name: NODE_ENV
+          value: "production"
+        # Tambahkan Env Var lain jika perlu (misal Database)
+        # - name: MONGO_URI
+        #   value: "masukkan_link_mongodb_disini" 
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: uas-backend-service
+spec:
+  selector:
+    app: uas-backend
+  ports:
+  - port: 80
+    targetPort: 5000
+  type: LoadBalancer
