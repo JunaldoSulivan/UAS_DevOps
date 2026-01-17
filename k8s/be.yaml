@@ -29,13 +29,13 @@ spec:
         # Tambahkan Env Var lain jika perlu (misal Database)
         # - name: MONGO_URI
         #   value: "masukkan_link_mongodb_disini" 
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "250m"
-          limits:
-            memory: "512Mi"
-            cpu: "500m"
+        # resources:
+        #   requests:
+        #     memory: "256Mi"
+        #     cpu: "250m"
+        #   limits:
+        #     memory: "512Mi"
+        #     cpu: "500m"
 ---
 apiVersion: v1
 kind: Service
